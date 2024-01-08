@@ -31,6 +31,20 @@
                         <div class="row-start-2">0</div>
                     </div>
                 </div>
+                <div class="flex justify-end">
+                    <form action="{{ route('toEdit.post') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="bg-green-600 hover:bg-green-800 text-white py-1 px-3 mt-2 me-2 rounded text-base">
+                            Edit Profile
+                        </button>
+                    </form>
+                    <form action="{{ route('auth.post.logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="bg-red-600 hover:bg-red-800 text-white py-1 px-3 mt-2 rounded text-base">
+                            Logout
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="bg-zinc-100 my-6 mx-56 shadow-md">
@@ -74,8 +88,17 @@
         </div>
 
         <div class="bg-zinc-100 my-6 mx-56 shadow-md">
-            <div class="text-2xl font-bold mt-10 ms-10">
-                My Courses | Published
+            <div class="flex flex-row items-center mt-10 ml-10">
+                <div class="text-2xl font-bold">
+                    My Courses | Published
+                </div>    
+                <div class="ml-auto">
+                    <div class="mr-8">
+                        <a href="/addCourse" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                            Add Course
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="grid grid-cols-4 my-10 mx-10 justify-items-center">
 

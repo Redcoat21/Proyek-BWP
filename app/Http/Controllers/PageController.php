@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Difficulty;
+use App\Models\Category;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -23,6 +25,16 @@ class PageController extends Controller
         return view('login');
     }
 
+    public function toEdit()
+    {
+        return redirect()->route('editProfile.get');
+    }
+
+    public function showBack(): RedirectResponse
+    {
+        return back();
+    }
+
     public function showHome(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
     {
         return view('home', ['topLecturers' => $this->getTopLecturers(), 'topCourses' => $this->getTopCourses()]);
@@ -30,7 +42,8 @@ class PageController extends Controller
 
     public function showCourse(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
     {
-        return view('courses.course');
+        $user = User::all();
+        return view('courses.course',compact('user'));
     }
 
     public function showListCourse(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
@@ -53,7 +66,7 @@ class PageController extends Controller
         return view('student.studentProfile');
     }
 
-    public function showEditProfileStudent(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
+    public function showEditProfile(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
     {
         return view('student.editProfile');
     }
@@ -61,6 +74,11 @@ class PageController extends Controller
     public function showLecturerProfile(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
     {
         return view('lecturer.lecturerProfile');
+    }
+    
+    public function showAddCourse(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
+    {
+        return view('lecturer.addCourse');
     }
 
     public function showListLecturer(): Application | Factory| \Illuminate\Contracts\View\View| \Illuminate\Foundation\Application
@@ -117,4 +135,13 @@ class PageController extends Controller
 
         return $res;
     }
+
+    function listAddCourse(){
+        $difficultylist = Difficulty::all(['id', 'name']);
+        $param["difficulty"] = $difficultylist;
+        $categorylist = Category::all(['id', 'name']);
+        $param["category"] = $categorylist;
+        return view("lecturer.addCourse", $param);
+    }
+
 }

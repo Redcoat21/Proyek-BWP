@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 /*
@@ -44,11 +45,17 @@ Route::prefix('/test')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/listCourse', [PageController::class, 'showListCourse'])->name('listCourse.get');
     Route::get('/listLecturer', [PageController::class, 'showListLecturer'])->name('listLecturer.get');
+    Route::get('/addCourse', [PageController::class,'listAddCourse'])->name('addCourse.get');
 });
 
 Route::get('/subCourse', [PageController::class, 'showSubCourse'])->name('subCourse.get');
 Route::get('/courseDetail', [PageController::class, 'showCourseDetail'])->name('courseDetail.get');
 Route::get('/course', [PageController::class, 'showCourse'])->name('course.get');
 Route::get('/studentProfile', [PageController::class, 'showStudentProfile'])->name('studentProfile.get');
-Route::get('/editProfileStudent', [PageController::class, 'showEditProfileStudent'])->name('editProfileStudent.get');
+Route::get('/editProfile', [PageController::class, 'showEditProfile'])->name('editProfile.get');
 Route::get('/lecturerProfile', [PageController::class, 'showLecturerProfile'])->name('lecturerProfile.get');
+Route::post('/toEdit', [PageController::class, 'toEdit'])->name('toEdit.post');
+Route::get('/back', [PageController::class, 'showBack'])->name('back.get');
+
+//routing untuk ajax
+Route::get('/search', [DataController::class, 'search']);
